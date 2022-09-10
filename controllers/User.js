@@ -28,8 +28,7 @@ export const createUser = async (req, res) => {
         const user = await User.create(req.body);
         console.log("New User ID ", user.id);
         res.status(200).json({
-            "message": "Address Created",
-            id: address.id
+            "message": "Address Created"
         });
     } catch (error) {
         res.status(400).json({ message: error.message });
