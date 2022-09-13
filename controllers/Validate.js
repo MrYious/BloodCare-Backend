@@ -26,6 +26,27 @@ export const validateUserByEmail = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: "Server Request Failed" });
     }
+}
 
-    
+export const refresh = async (req, res) => {
+    try {
+        console.log(req.body);
+        const user = await User.findOne({
+            where: {
+                id: req.body.id
+            }
+        });
+        if(user){
+            const userAddress = await Address.findOne({
+                where: {
+                    id: req.body.addressID
+                }
+            });
+            res.status(200).json({user, userAddress});
+        }else{
+            res.status(400).json({ message: "Failed 2" });
+        }
+    } catch (error) {
+        res.status(400).json({ message: "Failed 3" });
+    }
 }

@@ -28,7 +28,7 @@ export const createUser = async (req, res) => {
         const user = await User.create(req.body);
         console.log("New User ID ", user.id);
         res.status(200).json({
-            "message": "Address Created"
+            "message": "User Created"
         });
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -43,7 +43,7 @@ export const updateUser = async (req, res) => {
             }
         });
         res.status(200).json({
-            "message": "Address Updated"
+            "message": "User Updated"
         });
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -58,7 +58,7 @@ export const deleteUser = async (req, res) => {
             }
         });
         res.status(200).json({
-            "message": "Address Deleted"
+            "message": "User Deleted"
         });
     } catch (error) {
         res.status(400).json({ message: error.message });
