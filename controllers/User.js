@@ -1,4 +1,7 @@
 import User from "../models/userModel.js";
+import bcrypt from "bcrypt"
+
+const saltRounds = 10;
 
 export const getAllUsers = async (req, res) => {
     try {
@@ -23,17 +26,24 @@ export const getUserById = async (req, res) => {
     }
 }
 
+//REGISTER 2
 export const createUser = async (req, res) => {
     try {
+        req.body.password = bcrypt.hashSync(req.body.password, saltRounds);
+
         const user = await User.create(req.body);
+        console.log("USER Data", req.body);
         console.log("New User ID ", user.id);
         res.status(200).json({
-            "message": "User Created"
+            "message": "User Created",
+            id: user.id
         });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 }
+
+
 
 export const updateUser = async (req, res) => {
     try {

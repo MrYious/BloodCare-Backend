@@ -1,16 +1,17 @@
 import Address from "../models/addressModel.js";
 import User from "../models/userModel.js";
+import bcrypt from "bcrypt"
 
+// TODO
 export const validateUserByEmail = async (req, res) => {
     try {
-        console.log(req.body);
         const user = await User.findOne({
             where: {
                 email: req.body.email
             }
         });
         if(user){
-            if(user.password == req.body.password){
+            if(bcrypt.compareSync(req.body.password, user.password )){
                 const userAddress = await Address.findOne({
                     where: {
                         id: user.addressID

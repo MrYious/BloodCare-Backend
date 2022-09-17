@@ -1,20 +1,18 @@
-import Address from "../models/addressModel.js";
+import DonorInfo from "../models/donorInfo.js";
 
-export const getAllAddresses = async (req, res) => {
+export const getAllDonorInfo = async (req, res) => {
     try {
-        const address = await Address.findAll();
-        console.log("Here")
-        res.status(200).json(address);
-        console.log("Here")
+        const donorInfo = await DonorInfo.findAll();
+        res.status(200).json(donorInfo);
     } catch (error) {
         res.status(400).json({ message: error.message });
         console.log(error.message)
     }
 }
 
-export const getAddressById = async (req, res) => {
+export const getDonorInfoById = async (req, res) => {
     try {
-        const address = await Address.findAll({
+        const address = await DonorInfo.findAll({
             where: {
                 id: req.params.id
             }
@@ -25,44 +23,43 @@ export const getAddressById = async (req, res) => {
     }
 }
 
-//REGISTER 1
-export const createAddress = async (req, res) => {
+//Register 3
+export const createDonorInfo = async (req, res) => {
     try {
-        const address = await Address.create(req.body);
-        console.log("New Address ID ", address.id);
+        console.log(req.body);
+        await DonorInfo.create(req.body);
         res.status(200).json({
-            "message": "Address Created",
-            id: address.id
+            message: "DonorInfo Created",
         });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 }
 
-export const updateAddress = async (req, res) => {
+export const updateDonorInfo = async (req, res) => {
     try {
-        await Address.update(req.body, {
+        await DonorInfo.update(req.body, {
             where: {
                 id: req.params.id
             }
         });
         res.status(200).json({
-            "message": "Address Updated"
+            "message": "DonorInfo Updated"
         });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 }
 
-export const deleteAddress = async (req, res) => {
+export const deleteDonorInfo = async (req, res) => {
     try {
-        await Address.destroy({
+        await DonorInfo.destroy({
             where: {
                 id: req.params.id
             }
         });
         res.status(200).json({
-            "message": "Address Deleted"
+            "message": "DonorInfo Deleted"
         });
     } catch (error) {
         res.status(400).json({ message: error.message });
