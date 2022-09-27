@@ -11,7 +11,7 @@ const Request = db.define('request_tbl',{
         type: DataTypes.INTEGER
     },
     status:{
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     },
     message:{
         type: DataTypes.STRING
@@ -20,7 +20,7 @@ const Request = db.define('request_tbl',{
         type: DataTypes.INTEGER
     },
     comment:{
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     }
 },{
     freezeTableName: true

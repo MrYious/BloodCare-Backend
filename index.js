@@ -18,9 +18,9 @@ try {
 
 app.use(cors());
 app.use(express.json());
+app.use('/main', mainRoutes);
 app.use('/address', addressRoutes);
 app.use('/user', userRoutes);
-app.use('/main', mainRoutes);
 app.use('/donorinfo', donorInfoRoutes);
 app.use('/request', requestRoutes);
 

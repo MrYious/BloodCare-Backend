@@ -1,6 +1,11 @@
 import {
+    createRequest,
     createUser,
-    refresh,
+    getAllDonors,
+    getRequestsByID,
+    seedUser,
+    updateRequest,
+    updateUserProfile,
     validateUserByEmail
 } from "../controllers/Main.js";
 
@@ -10,6 +15,11 @@ const router = express.Router();
 
 router.post('/login', validateUserByEmail);
 router.post('/register', createUser)
-router.post('/refresh', refresh);
+router.patch('/updateProfile', updateUserProfile);
+router.get('/donors', getAllDonors);
+router.post('/request', createRequest);
+router.patch('/request', updateRequest);
+router.post('/requestList', getRequestsByID);
+router.post('/seedusers', seedUser);
 
 export default router;
