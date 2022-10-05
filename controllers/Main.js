@@ -29,8 +29,9 @@ export const createUser = async (req, res) => {
         const user = await User.create(req.body.user);
         console.log("New User ID ", user.id);
         console.log("User Created");
+        console.log("User Created",req.body.accountType);
 
-        if(req.body.accountType === 'Donor'){
+        if(req.body.user.accountType === 'Donor'){
             const donor = await DonorInfo.create({donorID: user.id});
             console.log("New Donor ID", donor.id);
             console.log("DonorInfo Created");
