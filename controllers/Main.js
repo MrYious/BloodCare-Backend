@@ -156,10 +156,11 @@ export const createRequest = async (req, res) => {
         const exist = await Request.findOne({
             where: {
                 donorID: req.body.donorID,
-                seekerID: req.body.seekerID
+                seekerID: req.body.seekerID,
+                status: ['Pending', 'Active']
             }
         });
-        if(exist.status === 'Pending' || exist.status === 'Active'){
+        if(exist){
             res.status(400).json({ message: "Failed: Existing request with donor" });
         }else {
             const request = await Request.create(req.body);
@@ -242,6 +243,41 @@ export const updateRequest = async (req, res) => {
                 id: req.body.id
             }
         });
+
+        console.log(req.body.data);
+        if(req.body.user){
+            console.log('here');
+            var avgRating = 0;
+            const reqs = await Request.findAll({
+                where: {
+                    donorID: req.body.user.id,
+                    status: "Completed",
+                    rating: [1,2,3,4,5]
+                }
+            });
+            console.log(reqs);
+            var sum = 0;
+            if(reqs){
+                reqs.forEach(item => {
+                    sum = item.rating + sum
+                });
+                console.log('current sum', sum);
+                console.log('size', reqs.length);
+            }
+            sum = sum + req.body.data.rating
+            avgRating = sum / (reqs.length + 1);
+            console.log(Math.floor(avgRating));
+
+            await DonorInfo.update({
+                donations: req.body.user.donorInfo.donations + 1,
+                avgRating: avgRating
+            }, {
+                where: {
+                    donorID: req.body.user.donorInfo.donorID
+                }
+            });
+        }
+
         res.status(200).json({
             "message": "Request Updated"
         });
